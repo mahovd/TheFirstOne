@@ -1,6 +1,7 @@
 package ru.mahovd.android.developer.thefirstone;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,7 +23,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void sendMessage(View view){
         Intent intent = new Intent(this,DisplayMessageActivity.class);
-        TextView editText = (TextView) findViewById(R.id.edit_message);
+        EditText editText = (EditText) findViewById(R.id.edit_message);
         String message = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE,message);
         startActivity(intent);
@@ -56,5 +57,19 @@ public class MainActivity extends ActionBarActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    //Starts only if you set parameter  in the AndroidManifest
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Toast.makeText(this,"landscape",Toast.LENGTH_SHORT).show();
+        }
+        else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            Toast.makeText(this,"portrait",Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
